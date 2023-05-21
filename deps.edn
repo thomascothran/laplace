@@ -9,10 +9,11 @@
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.874"}
         org.postgresql/postgresql {:mvn/version "42.2.10"}
         metosin/malli {:mvn/version "0.11.0"}
-        metosin/reitit {:mvn/version "0.6.0"}
-        com.brunobonacci/mulog {:mvn/version "0.9.0"}}
+        metosin/reitit {:mvn/version "0.6.0"}}
  :aliases
  {:run-m {:main-opts ["-m" "thomascothran.laplace"]}
+  :clerk {:extra-deps {io.github.nextjournal/clerk {:mvn/version "0.13.842"}}
+          :extra-paths ["src/clerk"]}
   :dev {:extra-paths ["src/dev" "resources/dev"]
         :extra-deps {djblue/portal {:mvn/version "0.40.0"}
                      com.github.jpmonettas/clojure {:mvn/version "1.11.1-2"}
