@@ -4,10 +4,10 @@
 
 Laplace is a tool for planning service delivery. It answers questions like:
 
-:rocket: How much can we do in a given time period?
-:watch: How long will a deliverable take?
-:construction_worker: How best to assign capacity across different initiatives?
-:dolar: What is the expected economic benefit of our project planning?
+- :rocket: How much can we do in a given time period?
+- :watch: How long will a deliverable take?
+- :construction_worker: How best to assign capacity across different initiatives?
+- :dolar: What is the expected economic benefit of our project planning?
 
 Laplace makes it easy to use a number of methods to illuminate planning of projects.
 
