@@ -1,10 +1,33 @@
-# Laplace: A Project Projection Tool
+# 📈 Laplace: A Project Projection Tool
 
-"The most important questions in life are, indeed, for the most part really only questions of probability." - Simone Pierre Laplace
+> "The most important questions in life are, indeed, for the most part really only questions of probability." - Simone Pierre Laplace
 
-Laplace is a tool for running and visualizing Monte Carlo simulations in the context of project planning.
+Laplace is a tool for planning service delivery. It answers questions like:
 
-It may be used both as a library and a service.
+:rocket: How much can we do in a given time period?
+:watch: How long will a deliverable take?
+:construction_worker: How best to assign capacity across different initiatives?
+:dolar: What is the expected economic benefit of our project planning?
+
+Laplace makes it easy to use a number of methods to illuminate planning of projects.
+
+## What can I use this for?
+
+Currently, Laplace can be used to answer the following questions:
+
+#### How long will a group of tasks take?
+
+If you have a group of tasks (say, for an Epic or Feature), you can get range for how long those tasks might take.
+
+Laplace uses throughput to determine the rate at which you can expect tasks to be complete. Ideally, this rate comes from data in your ticketing system. But you can also experiment with your own estimates.
+
+#### How many tasks can be completed in a certain time period
+
+## Usage
+
+### As a Library
+
+### As a Service
 
 ## Installation
 
