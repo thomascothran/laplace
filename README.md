@@ -51,6 +51,8 @@ Laplace can currently be used as a library. Usage as a standalone service with a
 
 ### As a Library
 
+Laplace may be used with Clojure's Tools Deps, via get dependencies.
+
 ### As a Service
 
 ## Installation
