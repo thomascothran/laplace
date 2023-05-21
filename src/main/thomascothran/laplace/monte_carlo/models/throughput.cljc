@@ -4,8 +4,7 @@
 
   - How long until they are complete?
   - How many items can be complete in a given time frame"
-  (:require [kixi.stats.core :refer [histogram]]
-            [kixi.stats.distribution :as dist]
+  (:require [kixi.stats.distribution :as dist]
             [thomascothran.laplace.monte-carlo.impl :as monte-carlo]))
 
 (defn how-long?
