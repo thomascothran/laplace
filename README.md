@@ -1,6 +1,10 @@
-# laplace
+# Laplace: A Project Projection Tool
 
-FIXME: my new application.
+"The most important questions in life are, indeed, for the most part really only questions of probability." - Simone Pierre Laplace
+
+Laplace is a tool for running and visualizing Monte Carlo simulations in the context of project planning.
+
+It may be used both as a library and a service.
 
 ## Installation
 
