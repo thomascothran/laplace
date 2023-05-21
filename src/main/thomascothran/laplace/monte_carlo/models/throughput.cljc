@@ -10,17 +10,17 @@
 (defn how-long?
   "How long will it take to complete a number of items?
 
-  `:throughput.distribution/portion` is useful if you have
+  `:capacity/distribution` is useful if you have
   a distribution for a team, but can only put half the
   team on an effort."
   [{throughput-distribution :throughput/distribution
     iterations              :monte-carlo/iterations
     work-item-distribution  :work-items/distribution
-    distribution-portion    :throughput.distribution/portion
-    :or                     {distribution-portion 1
+    capacity-distribution   :capacity/distribution
+    :or                     {capacity-distribution (dist/categorical {1 1})
                              iterations           500}}]
   (let [items-completed #(-> (dist/draw throughput-distribution)
-                             (* distribution-portion))
+                             (* (dist/draw capacity-distribution)))
         simulate        #(loop [time-units           0
                                 work-items-remaining (dist/draw work-item-distribution)]
                            (let [completed  (items-completed)
