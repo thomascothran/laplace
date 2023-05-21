@@ -7,23 +7,47 @@ Laplace is a tool for planning service delivery. It answers questions like:
 - :rocket: How much can we do in a given time period?
 - :watch: How long will a deliverable take?
 - :construction_worker: How best to assign capacity across different initiatives?
-- :dolar: What is the expected economic benefit of our project planning?
+- :dollar: What is the expected economic benefit of our project planning?
 
 Laplace makes it easy to use a number of methods to illuminate planning of projects.
 
-## What can I use this for?
+## 👩‍💼 What can I use this for?
 
 Currently, Laplace can be used to answer the following questions:
 
-#### How long will a group of tasks take?
+#### :calendar: How long will a group of tasks take?
 
 If you have a group of tasks (say, for an Epic or Feature), you can get range for how long those tasks might take.
 
-Laplace uses throughput to determine the rate at which you can expect tasks to be complete. Ideally, this rate comes from data in your ticketing system. But you can also experiment with your own estimates.
+Laplace uses throughput to determine the rate at which you can expect tasks to be complete. Ideally, this rate comes from data in your ticketing system. But you can also experiment with your own estimates if you do not have historical data, or if you want to experiment
 
-#### How many tasks can be completed in a certain time period
+#### 🎟️ How many tasks can be completed in a certain time period?
 
-## Usage
+Suppose you want to plan for the next sprint, and you want to know how many work items can be expected to be completed in that time frame. Laplace will use your historical data to answer this question with varying confidence intervals.
+
+#### :ticket: For a particular work item, when can I expect it to be complete?
+
+Suppose that your tickets move through the following stages
+
+## 📑 Techniques
+
+Current techniques:
+
+- Monte Carlo
+
+Planned:
+
+- Cost of Delay
+- Reference class forecasting
+- Economic Modeling
+
+## 🔢 Data Sources
+
+TODO: add the ability to import historical data from Jira and other ticketing systems
+
+## 👩🏽‍ Usage
+
+Laplace can currently be used as a library. Usage as a standalone service with a web interface is in progress.
 
 ### As a Library
 
@@ -33,7 +57,7 @@ Laplace uses throughput to determine the rate at which you can expect tasks to b
 
 Download from https://github.com/thomascothran/laplace
 
-## Usage
+## Development
 
 FIXME: explanation
 
