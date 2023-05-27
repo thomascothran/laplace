@@ -4,7 +4,9 @@
             [reitit.middleware :as middleware]
             [reitit.dev.pretty :as pretty]
             [thomascothran.laplace.routes :as routes]
-            [thomascothran.laplace.server.middleware :as mw]))
+            [thomascothran.laplace.server.middleware :as mw]
+            [reitit.coercion.malli]
+            [reitit.coercion :as coercion]))
 
 (def routes
   ["/" {:get (constantly {:status 200 :body "hi you there"})}])
@@ -14,8 +16,10 @@
 
 (defn- reitit-conf ;; fn ensures hot reloading works
   []
-  {:exception pretty/exception
-   :config {:middleware mw/defaults}
+  {:exception            pretty/exception
+   ;; :compile              coercion/compile-request-coercers
+   :data               {:middleware mw/defaults
+                        :coercion reitit.coercion.malli/coercion}
    ::middleware/registry mw/registry})
 
 (defn start!
@@ -30,9 +34,9 @@
     (throw (Exception. "Server already running")))
   (let [handler
         (if dynamic
-          #(ring/ring-handler (ring/router routes/tree (reitit-conf))
+          #(ring/ring-handler (ring/router (routes/tree) (reitit-conf))
                               (constantly {:status 404}))
-          (constantly (ring/ring-handler (ring/router routes/tree (reitit-conf))
+          (constantly (ring/ring-handler (ring/router (routes/tree) (reitit-conf))
                                          (constantly {:status 404}))))
         app (fn [req] ((handler) req))
         server (jetty/run-jetty app {:port port :join? false})]
