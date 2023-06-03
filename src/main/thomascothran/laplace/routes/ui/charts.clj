@@ -12,11 +12,13 @@
   [req]
   (let [{:keys [min-work-item-no
                 max-work-item-no
+                min-capacity
+                max-capacity
                 throughput-dist]} (get-in req [:parameters :form])
 
         work-item-distribution
         (if (or (nil? max-work-item-no) (= "" max-work-item-no)
-                (= min-work-item-no max-work-item-no ))
+                (= min-work-item-no max-work-item-no))
           (dist/categorical {min-work-item-no 1})
           (dist/uniform {:a min-work-item-no
                          :b max-work-item-no}))
@@ -25,7 +27,12 @@
              (map edn/read-string)
              (lkx/occurrences->categorical-dist))
 
-        capacity-distribution              (dist/categorical {1 1})
+        min-capacity' (/ min-capacity 100)
+        max-capacity' (/ max-capacity 100)
+        capacity-distribution
+        (if (= min-capacity max-capacity)
+          (dist/categorical {1 min-capacity'})
+          (dist/uniform {:a min-capacity' :b max-capacity'}))
 
         {histogram :monte-carlo/histogram} (mct/how-long? {:throughput/distribution throughput-distribution
                                                            :work-items/distribution work-item-distribution
@@ -37,10 +44,10 @@
     {:hiccup/fragment
      [:div.is-flex.is-justify-content-center
       (ac/line-chart {:chart/values        chart-values
-                           :chart/x-field       :x
-                           :chart/y-field       :y
-                           :chart/x-field-title "Time"
-                           :chart/y-field-title "Confidence"})]}))
+                      :chart/x-field       :x
+                      :chart/y-field       :y
+                      :chart/x-field-title "Time"
+                      :chart/y-field-title "Confidence"})]}))
 
 (defn routes
   []
@@ -49,6 +56,8 @@
     {:post {:parameters {:form [:map
                                 [:min-work-item-no {:optional true}
                                  [:or number? [:string {:max 0}]]]
+                                [:min-capacity number?]
+                                [:max-capacity number?]
                                 [:max-work-item-no number?]
                                 [:throughput-dist :string]]}
             :handler  simple-throughput-model-post}}]])

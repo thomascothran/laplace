@@ -23,9 +23,23 @@
            :min       "1"
            :name      "max-work-item-no"
            :type      "number"
+           :value     "10"
            :required  true
            :help-text "What is the maximum number of work items you could end up with?"}
-
+   #:field{:label     "Minimum Capacity"
+           :name      "min-capacity"
+           :value     "100"
+           :min       "1"
+           :type      "number"
+           :required  true
+           :help-text "You will devote at least this percentage of capacity. For example, 50%"}
+   #:field{:label     "Maximum Capacity"
+           :name      "max-capacity"
+           :value     "100"
+           :min       "1"
+           :type      "number"
+           :required  true
+           :help-text "You will devote at most this percentage of capacity. For example, 120%"}
    #:field{:label     "Throughput"
            :name "throughput-dist"
            :value     "1,2,3"
