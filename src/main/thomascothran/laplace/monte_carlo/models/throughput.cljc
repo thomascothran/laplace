@@ -18,7 +18,7 @@
     work-item-distribution  :work-items/distribution
     capacity-distribution   :capacity/distribution
     :or                     {capacity-distribution (dist/categorical {1 1})
-                             iterations            500}}]
+                             iterations            5000}}]
   (let [items-completed #(-> (dist/draw throughput-distribution)
                              (* (dist/draw capacity-distribution)))
         simulate        #(loop [time-units           0
