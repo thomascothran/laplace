@@ -33,7 +33,7 @@
                "y"     {"field" y-field,
                         "title" y-field-title
                         "type"  "quantitative"}},
-   "mark"     {"type" "line", "tooltip" true}})
+   "mark"     {"type" "line", "tooltip" true, "point" true, "interpolate" "monotone"}})
 
 (defn line-chart
   "Return a line chart with x and y starting at 0.

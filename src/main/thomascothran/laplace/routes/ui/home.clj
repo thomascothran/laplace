@@ -5,7 +5,7 @@
 (defn home-get
   [_req]
   {:hiccup/page
-   [:div.container
+   [:div.container.box
     (organism/simple-model-form {:form/action "/ui/charts/simple-throughput-model"
                                  :htmx/target "#simple-throughput-model-chart"})
     [:div#simple-throughput-model-chart]]})

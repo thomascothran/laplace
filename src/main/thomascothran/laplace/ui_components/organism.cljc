@@ -13,26 +13,19 @@
 
 (def ^:private
   simple-model-form-fields
-  [#:field{:label     "Number of work items"
-           :name      "work-item-no"
-           :value     "1"
-           :type      "number"
+  [#:field{:label    "Minimum number of work items"
+           :name     "min-work-item-no"
+           :value    "1"
+           :type     "number"
+           :min      "1"
+           :required true}
+   #:field{:label     "Maximum number of work items"
            :min       "1"
-           :required  true
-           :help-text "How many work items do you have?"}
-   #:field{:label     "Minimum growth of work items"
-           :value     "0"
-           :min       "0"
-           :name      "minimum-work-item-growth"
+           :name      "max-work-item-no"
            :type      "number"
            :required  true
-           :help-text "What is the minimal percentage of work item growth? E.g., 0% would mean no stories are added"}
-   #:field {:label     "Maximum work-item growth"
-            :name      "maximum-work-item-growth"
-            :value     "100"
-            :required  true
-            :type      "number"
-            :help-text "What is the maximum growth for stories? E.g., 100% story grown means you'll end with twice the stories"}
+           :help-text "What is the maximum number of work items you could end up with?"}
+
    #:field{:label     "Throughput"
            :name "throughput-dist"
            :value     "1,2,3"
@@ -43,8 +36,10 @@
 (defn simple-model-form
   "Our simplest model answers the question: given a group
   of tasks, how long will they take?"
-  [{post-to                 :form/action
-    target                  :htmx/target}]
+  [{post-to :form/action
+    target  :htmx/target}]
   [:form {:hx-post post-to :hx-target target}
    (map molecule/text-field simple-model-form-fields)
-   [:button.button.is-link {:type "submit"} "Submit"]])
+   [:div.field.is-grouped.is-grouped-right
+    [:p.control
+     [:button.button.is-link {:type "submit"} "Submit"]]]])
