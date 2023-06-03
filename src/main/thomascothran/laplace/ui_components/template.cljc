@@ -11,7 +11,7 @@
     [:meta {:charset "utf-8"}]
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
     [:link {:rel "stylesheet" :href "/assets/css/bulma.min.css"}]
-    (for [js ["vega_5.25.0.js"  "vega_lite_5.9.1.js" "vega_embed_6.22.1.js" "htmx_1.9.2.js"]]
+    (for [js ["vega_5.25.0.js"  "vega_lite_5.9.1.js" "vega_embed_6.22.1.js" "hyperscript.min.js" "htmx_1.9.2.js"]]
       [:script {:src (str "/assets/js/" js)}])]
    body])
 
