@@ -2,6 +2,7 @@
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
         ring/ring {:mvn/version "1.10.0"}
         org.clojure/core.async {:mvn/version "1.6.673"}
+        org.clojure/tools.logging {:mvn/version "1.2.4"}
         funcool/promesa {:mvn/version "11.0.664"}
         kixi/stats {:mvn/version "0.5.5"}
         ring/ring-jetty-adapter {:mvn/version "1.10.0"}
