@@ -1,6 +1,15 @@
 (ns dev
   (:require [malli.dev :as mdev]
+            [thomascothran.laplace]
             [thomascothran.laplace.server :as server]))
+
+(defn start-notebooks!
+  []
+  ((requiring-resolve 'nextjournal.clerk/serve!)
+   {:browse true, :watch-paths ["src/clerk"]}))
+
+(comment
+  (start-notebooks!))
 
 (defn go!
   []
