@@ -16,7 +16,13 @@
   (mdev/start!)
   (server/start! {:router/dynamic true}))
 
+(comment
+  (go!))
+
 (defn stop!
   []
   (mdev/stop!)
   (server/stop!))
+
+(comment
+  (stop!))
