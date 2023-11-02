@@ -1,5 +1,6 @@
 (ns thomascothran.laplace.server
   (:require [ring.adapter.jetty :as jetty]
+            [clojure.tools.logging :as log]
             [reitit.ring :as ring]
             [reitit.middleware :as middleware]
             [reitit.dev.pretty :as pretty]
@@ -40,6 +41,7 @@
                                          (constantly {:status 404}))))
         app (fn [req] ((handler) req))
         server (jetty/run-jetty app {:port port :join? false})]
+    (log/infof "Server started on port %s" port)
     (reset! server-atom server)))
 
 (defn stop!
@@ -49,7 +51,6 @@
    (assert @server-atom)
    (.stop @server-atom)
    (reset! server-atom nil)))
-
 
 (comment
   (start! {:router/dynamic true})
