@@ -1,0 +1,39 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "clojure@latest": {
+      "last_modified": "2023-10-25T20:49:13Z",
+      "resolved": "github:NixOS/nixpkgs/75a52265bda7fd25e06e3a67dee3f0354e73243c#clojure",
+      "source": "devbox-search",
+      "version": "1.11.1.1413",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/7kydnqfkhjy978d5zlxavj1ng1wrisqd-clojure-1.11.1.1413"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/3vs9i500l25bsfg32w2xm3i73qf8b7nn-clojure-1.11.1.1413"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/krh3prps3v1bf1kh9z808m7cl2y34gvl-clojure-1.11.1.1413"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/szk0q16w55igs13g94y3pzdba8yxwiyw-clojure-1.11.1.1413"
+        }
+      }
+    },
+    "jdk21@latest": {
+      "last_modified": "2023-11-02T13:29:18Z",
+      "resolved": "github:NixOS/nixpkgs/b644d97bda6dae837d577e28383c10aa51e5e2d2#jdk21",
+      "source": "devbox-search",
+      "version": "21+35",
+      "systems": {
+        "aarch64-linux": {
+          "store_path": "/nix/store/m2rm8an3wvhrvvggd4cnyiny420pfvxi-openjdk-21+35"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/q2vb58zhpsyhs3zq3zgyd3arv1m7b486-openjdk-21+35"
+        }
+      }
+    }
+  }
+}
