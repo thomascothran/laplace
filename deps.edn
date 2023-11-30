@@ -31,4 +31,5 @@
           :ns-default build}
   :test {:extra-paths ["src/test" "resources/test"]
          :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}
+                      com.hyperfiddle/rcf {:mvn/version "20220926-202227"}
                       lambdaisland/kaocha {:mvn/version "1.83.1314"}}}}}
