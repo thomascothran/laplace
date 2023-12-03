@@ -6,15 +6,15 @@
   - How many items can be complete in a given time frame"
   (:require [kixi.stats.distribution :as dist]
             [kixi.stats.core :refer [histogram]]
+            [hyperfiddle.rcf :refer [tests]]
             [thomascothran.laplace.monte-carlo.impl :as monte-carlo]))
 
-(def kixi-accumulator
-  (reify monte-carlo/TrialResultsAccumulator
-    (accumulate [_ trials]
-      {:monte-carlo/trials trials
-       :monte-carlo/histogram (transduce identity
-                                         histogram
-                                         trials)})))
+(defn- kixi-accumulator
+  [trials]
+  {:monte-carlo/trials trials
+   :monte-carlo/histogram (transduce identity
+                                     histogram
+                                     trials)})
 
 (defn how-long?
   "How long will it take to complete a number of items?
@@ -39,17 +39,21 @@
                              (if (neg? items-left)
                                time-units
                                (recur (inc time-units) items-left))))]
-    (monte-carlo/run {:monte-carlo/iterations iterations
-                      :monte-carlo/trial-results-accumulator accumulator
-                      :monte-carlo/trial      simulate})))
+    (->> {:monte-carlo/iterations iterations
+          :monte-carlo/trial      simulate}
+         monte-carlo/run
+         accumulator)))
 
-(comment
-  (-> {:monte-carlo/iterations  20
-       :throughput/distribution (dist/uniform {:a 1 :b 2})
-       :work-items/distribution (dist/uniform {:a 20 :b 30})}
-      how-long?
-      :monte-carlo/histogram
-      dist/summary))
+(tests
+ "how-long? should run successfully"
+ (def how-long-result
+   (-> {:monte-carlo/iterations  20
+        :throughput/distribution (dist/uniform {:a 1 :b 2})
+        :work-items/distribution (dist/uniform {:a 20 :b 30})}
+       how-long?
+       :monte-carlo/histogram
+       dist/summary))
+ (map? how-long-result) := true)
 
 (defn how-many?
   "How many work items can be finished in a time period?
@@ -69,14 +73,17 @@
                  (if (= time-inc time-period)
                    work-items (recur (+ work-items (dist/draw throughput-distribution))
                                      (inc time-inc))))]
-    (monte-carlo/run {:monte-carlo/iterations iterations
-                      :monte-carlo/trial-results-accumulator accumulator
-                      :monte-carlo/trial      trial})))
+    (->> {:monte-carlo/iterations iterations
+          :monte-carlo/trial      trial}
+         monte-carlo/run
+         accumulator)))
 
-(comment
-  (-> {:time/period             100
-       :monte-carlo/iterations  10
-       :throughput/distribution (dist/uniform {:a 0 :b 3})}
-      (how-many?)
-      :monte-carlo/histogram
-      dist/summary))
+(tests
+ (def how-many-results
+   (-> {:time/period             100
+        :monte-carlo/iterations  10
+        :throughput/distribution (dist/uniform {:a 0 :b 3})}
+       (how-many?)
+       :monte-carlo/histogram
+       dist/summary))
+ (map? how-many-results) := true)
