@@ -1,5 +1,6 @@
 (ns thomascothran.laplace.distribution.impl
-  (:require [thomascothran.laplace.distribution.proto :as proto]))
+  (:require [thomascothran.laplace.distribution.proto :as proto]
+            [hyperfiddle.rcf :refer [tests]]))
 
 (extend-protocol proto/Sampleable
   #?(:clj java.lang.Number
@@ -11,10 +12,17 @@
   (sample [this]
     (repeatedly #(rand-nth this))))
 
-(comment
-  ;; Essentially uniform distributions
-  (take 3 (proto/sample 1))
-  (take 3 (proto/sample [1 2 3 5])))
+(tests
+ "Numbers support sampling"
+ (take 3 (proto/sample 1)) := '(1 1 1)
+
+ "Vectors support sampling"
+ (def sampled-vector-nums
+   (let [nums [1 2 3 5]]
+     (->> (take 30 (proto/sample [1 2 3 5]))
+          (filter (into #{} nums))
+          (count))))
+ sampled-vector-nums := 30)
 
 (extend-protocol proto/Distribution
   #?(:clj java.lang.Number
@@ -29,12 +37,14 @@
     (let [this' (sort this)
           below (take-while (partial >= x) this')]  ; Sum counts up to x
       (/ (count below)
-         (count this'))))
-  :cljs)
+         (count this')))))
 
-(comment
-  (proto/cdf [1 1 1 4] 4)
-  (proto/cdf [1 2 3 4 5 6] 3))
+(tests
+ "CDF works on vectors"
+
+ (proto/cdf [1 1 1 4] 4) := 1
+
+ (proto/cdf [1 2 3 4 5 6] 3) := 1/2)
 
 (defn- vec->quantile
   "Get the `n`th quantile from `xs`.
@@ -56,15 +66,15 @@
             0
             sxs)))
 
-(comment
-  (= 3 (vec->quantile [1 3 9 9] 0.25))
-  (= nil (vec->quantile [1 1] 0.9))
-  (= 1 (vec->quantile [1] 0.0))
-  (= 5
-     (-> (range 10)
-         vec
-         (sort)
-         (vec->quantile 0.5))))
+(tests
+ "Vec->quantile"
+ (vec->quantile [1 3 9 9] 0.25) := 3
+ (vec->quantile [1 1] 0.9) := nil
+ (vec->quantile [1] 0.0) := 1
+ (-> (range 10)
+     vec
+     (sort)
+     (vec->quantile 0.5)) := 5)
 
 (extend-protocol proto/Quantile
 
