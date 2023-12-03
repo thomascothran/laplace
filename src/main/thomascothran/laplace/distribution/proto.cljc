@@ -7,7 +7,7 @@
 
 (defprotocol Distribution
   :extend-via-metadata true
-  (cdf [this x] "Evaluate the cumulative distribution function at x"))
+  (cdf [this ^Number x] "Evaluate the cumulative distribution function at x"))
 
 (comment
   (type [1 2 3]))
