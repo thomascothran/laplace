@@ -3,6 +3,7 @@
    [clojure.edn :as edn]
    [clojure.string :as str]
    [reitit.coercion.malli]
+   [kixi.stats.core :refer [histogram]]
    [kixi.stats.distribution :as dist]
    [thomascothran.laplace.monte-carlo.models.throughput :as mct]
    [thomascothran.laplace.ui-components.atom.charts :as ac]
@@ -34,13 +35,19 @@
           (dist/categorical {1 min-capacity'})
           (dist/uniform {:a min-capacity' :b max-capacity'}))
 
-        {histogram :monte-carlo/histogram} (mct/how-long? {:throughput/distribution throughput-distribution
-                                                           :work-items/distribution work-item-distribution
-                                                           :capacity/distribution   capacity-distribution})
+        histogram'
+        (->> {:throughput/distribution throughput-distribution
+              :work-items/distribution work-item-distribution
+              :capacity/distribution   capacity-distribution}
+             mct/how-long?
+             (transduce identity histogram))
 
-        xs                                 (lkx/quantiles histogram {:histogram/quantile-step 1})
-        ys                                 (->> (range 1 101 1) vec)
+        xs
+        (lkx/quantiles histogram' {:histogram/quantile-step 1})
+
+        ys  (->> (range 1 101 1) vec)
         chart-values                       (mapv (fn [x y] {:x x :y y}) xs ys)]
+
     {:hiccup/fragment
      [:div.is-flex.is-justify-content-center
       (ac/line-chart {:chart/values        chart-values
